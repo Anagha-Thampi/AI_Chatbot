@@ -1,0 +1,77 @@
+AI CHATBOT
+
+Problem Statement:
+
+- To create a simple question-answering chatbot using LLM models accessed through an API.
+- The chatbot should accept user input, send it to the LLM model, display the AI response, and maintain multi-turn conversations.
+- Experimentation had to be done using various parameters.
+
+Solving Approach:
+
+- First, a simple one-turn chatbot was created to learn the basics of API connection and how to send requests to the LLM model. The chatbot accepted one message and displayed the result.
+- Next, the chatbot was modified to hold normal conversations. The complete conversation history was sent to the model with each request, using the role "user" for user messages and "assistant" for AI replies.
+- The behavior of the AI was tweaked by adding an element in the message history with the role "system" and by changing the temperature parameter, which changes the level of creativity of the model.
+
+Steps:
+
+- An API key was generated using Groq, and the Groq library was installed and imported into the program. The API key was then used to connect to the API.
+- A single message was sent to the model by creating an object to make a request to the LLM.
+- The reply was printed by accessing the response object.
+- This code was then placed inside a loop, with a separate list used to store the conversation history. Each user message and AI reply was added to the list.
+- The temperature and max_tokens features were tested, along with adding a system message to change the AI behavior.
+- The chatbot was tested to verify whether it remembered previous messages.
+
+Challenges:
+
+- It was my first time using a Python virtual environment, so I faced some difficulty while creating and activating the environment.
+- I handled this by learning how Python virtual environments work and understanding the correct activation process.
+
+
+HOW TO RUN THE PROJECT:
+
+1. Clone the repository
+    git clone <repository_link>
+
+
+2. Navigate into the project folder
+    cd llm-project
+
+
+3. Create a virtual environment
+    python -m venv venv
+
+
+4. Activate the virtual environment
+   Windows PowerShell:
+    .\venv\Scripts\Activate.ps1
+   Windows CMD:
+    venv\Scripts\activate
+
+
+5. Install the required package
+    pip install groq
+
+
+6. Set the Groq API key
+    PowerShell:
+     $env:GROQ_API_KEY="your_api_key"
+    Windows CMD:
+     set GROQ_API_KEY="your_api_key"
+
+
+7. Run the chatbot
+    python chat.py
+
+
+8. Type messages into the terminal to chat with the AI chatbot.
+   Type `exit` to stop the chatbot.
+
+Example Conversation:
+
+You: Hello
+Bot: Hi! How can I help you today?
+
+You: What did I just say?
+Bot: You said "Hello."
+
+
