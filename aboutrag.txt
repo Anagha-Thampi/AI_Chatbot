@@ -1,0 +1,63 @@
+How Retrieval Works
+
+In a RAG (Retrieval-Augmented Generation) system, the uploaded PDF documents are first split into smaller chunks using a text splitter. Each chunk is then converted into a numerical vector representation called an embedding using the HuggingFace model Sentence Transformers with the `all-MiniLM-L6-v2` model.
+
+These embeddings are stored in ChromaDB.
+When the user asks a question:
+
+1. The question is also converted into an embedding.
+2. ChromaDB compares the question embedding with all stored document embeddings.
+3. The most semantically similar chunks are retrieved.
+4. These retrieved chunks are provided as context to the Groq LLM (`llama-3.1-8b-instant`).
+5. The model generates an answer using only the retrieved context.
+
+This allows the chatbot to answer questions specifically based on the uploaded PDFs rather than relying only on general knowledge.
+
+---
+
+Issues Faced
+
+1. Import Errors
+Several LangChain modules had changed package locations in newer versions, causing `ModuleNotFoundError` issues.
+
+2. Incorrect PDF Loading
+The second PDF was not loading correctly because the wrong loader variable was used accidentally.
+
+3. ChromaDB Persistence Issues
+Old embeddings stored in the `chroma_db` folder sometimes caused retrieval from outdated documents.
+
+4. Streamlit Widget Errors
+Using multiple `st.chat_input()` elements or using loops in Streamlit caused duplicate widget ID errors.
+
+5. API Key Authentication Errors
+Incorrect or missing Groq API keys caused authentication failures.
+
+6. Retrieval Accuracy Problems
+Some questions retrieved irrelevant chunks due to:
+   * chunk boundaries
+   * small context size
+   * semantic mismatch between question and chunks
+
+---
+
+Possible Improvements
+
+1. Better Embedding Models
+2. Better Chunking Strategies
+   Use:
+   - semantic chunking
+   - section-aware chunking
+   - sentence-based chunking
+   instead of fixed-size chunks.
+3. Source Citations
+   Display:
+   - source PDF
+   - page number
+   - retrieved chunks
+   to improve explainability and trust.
+4. Conversation Memory
+   Implement long-term memory using databases like:
+   - SQLite
+   - MongoDB
+   - PostgreSQL
+   instead of temporary session memory.
