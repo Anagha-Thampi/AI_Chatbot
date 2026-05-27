@@ -1,0 +1,68 @@
+PROBLEM
+The project focused on building a Retrieval-Augmented Generation (RAG) chatbot capable of answering user questions based on the contents of uploaded PDF documents. 
+The objective was to create a system that could understand document content, retrieve relevant information, and generate accurate answers using a Large Language Model (LLM).
+
+The chatbot needed to:
+- Load and process multiple PDF documents
+- Convert document content into embeddings
+- Store embeddings in a vector database
+- Retrieve relevant document chunks for user queries
+- Generate context-based answers using an LLM
+- Provide an interactive interface using Streamlit
+
+
+APPROACH
+
+- Load PDF documents using PyPDF and LangChain document loaders.
+- Split documents into smaller chunks using RecursiveCharacterTextSplitter.
+- Generate embeddings for each chunk using the HuggingFace model all-MiniLM-L6-v2.
+- Store embeddings and chunk metadata in ChromaDB.
+- Convert user questions into embeddings and retrieve the top relevant chunks.
+- Send the retrieved context along with the user query to the Groq LLM (llama-3.1-8b-instant) for answer generation.
+- Display the final response and retrieved source chunks in a Streamlit-based user interface.
+
+
+STEPS AND MEASURES
+
+1. Environment Setup
+2. PDF Processing
+   - Loaded multiple PDF files using PyPDFLoader
+   - Combined all loaded documents into a single document list
+3. Text Chunking
+   - Split the documents into manageable chunks using:
+     chunk_size = 500
+     chunk_overlap = 50
+4. Embedding Generation
+   - Used the HuggingFace embedding model:
+     all-MiniLM-L6-v2
+   - Converted all document chunks into vector embeddings
+5. Vector Database Creation
+   - Stored embeddings locally using ChromaDB
+   - Added persistence support so embeddings remained available after restarting the application
+6. Retrieval Pipeline
+   - Implemented semantic retrieval to fetch the top 3 most relevant chunks for every query
+   - Displayed retrieved chunks for debugging and transparency
+7. LLM Integration
+   - Integrated the Groq-hosted LLM using LangChain
+   - Designed prompts instructing the model to answer using only retrieved document context
+8. Streamlit Interface
+   - Built a web-based chatbot interface
+9. Logging and Debugging
+   - Added logging to track: PDF loading, chunk generation, retrieval operations, LLM responses, errors.
+
+
+CHALLENGES FACED
+
+1. Library Import Errors
+   - Several LangChain imports failed because newer versions separated modules into different packages.
+   Solution:
+   - Installed updated packages such as:
+      langchain-text-splitters
+      langchain-huggingface
+      langchain-community
+     and corrected import statements.
+
+2. Incorrect PDF Retrieval
+   - The second PDF initially did not appear in retrieval results because the wrong loader variable was used accidentally.
+   Solution:
+   - Corrected the loader usage and verified loaded documents using metadata inspection.
