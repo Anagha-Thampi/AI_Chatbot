@@ -66,3 +66,35 @@ CHALLENGES FACED
    - The second PDF initially did not appear in retrieval results because the wrong loader variable was used accidentally.
    Solution:
    - Corrected the loader usage and verified loaded documents using metadata inspection.
+
+
+
+HOW TO RUN THE PROJECT:
+
+1. Clone the repository
+    git clone <repository_link>
+
+2. Navigate into the project folder
+    cd llm-project
+
+3. Create a virtual environment
+    python -m venv venv
+
+4. Activate the virtual environment
+   Windows PowerShell:
+    .\venv\Scripts\Activate.ps1
+   Windows CMD:
+    venv\Scripts\activate
+
+5. Install the required packages
+    pip install groq
+
+6. Set the Groq API key in the code
+
+7. Run the chatbot
+    python rag.py
+
+8. Type messages into the terminal to chat with the AI chatbot.
+   Type `exit` to stop the chatbot.
+
+
